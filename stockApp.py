@@ -21,19 +21,22 @@ st.image(image, use_column_width = True)
 
 st.sidebar.header("User Input")
 
+
 # Obtains user inputs (start date, end date and company stock ticker) from the sidebar
 def get_input():
-    start_date = st.sidebar.text_input("Start Date", "2020-01-02")
-    end_date = st.sidebar.text_input("End Date", "2020-08-22")
+    start_date = st.sidebar.text_input("Start Date", "2021-06-01")
+    end_date = st.sidebar.text_input("End Date", "2021-06-19")
     stock_symbol = st.sidebar.text_input("Stock Symbol", "TSLA")
 
     return start_date, end_date, stock_symbol
+
 
 # Returns Name of company based on stock ticker/symbol
 def get_company_name(symbol):
     ticker = yf.Ticker(symbol)
 
     return ticker.info['longName']
+
 
 # Returns stock data 
 def get_data(symbol, start_date, end_date):
@@ -60,6 +63,7 @@ def get_data(symbol, start_date, end_date):
     data = data.set_index(pd.to_datetime(data.index.values))
 
     return data.iloc[start_row:end_row+1, :]
+
 
 start, end, symbol = get_input()
 
